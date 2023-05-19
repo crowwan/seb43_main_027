@@ -9,6 +9,6 @@ export interface useInputReturn {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setValue: React.Dispatch<React.SetStateAction<string>>;
   validity: boolean;
-};
+}
 
 export type useValidityType = 'username' | 'email' | 'password';
