@@ -97,15 +97,17 @@ const InputSection = () => {
     } else {
       formData.append(
         'patch',
-        new Blob([JSON.stringify(post)], {
-          type: 'application/json'
-        })
-      );
-      formData.append(
-        'url',
-        new Blob([JSON.stringify(url)], {
-          type: 'application/json'
-        })
+        new Blob(
+          [
+            JSON.stringify({
+              ...post,
+              fileUrlList: [...url]
+            })
+          ],
+          {
+            type: 'application/json'
+          }
+        )
       );
       patchData(
         `${process.env.REACT_APP_API_URL}/api/posts/${postId}`,
@@ -137,7 +139,10 @@ const InputSection = () => {
   return (
     <form onSubmit={onSubmitHandler} encType='multipart/form-data'>
       <StyledContainer>
-        <SelectTag options={postOptionTags} onChange={onTagChangeHandler} />
+        <SelectTag
+          options={postOptionTags.slice(1)}
+          onChange={onTagChangeHandler}
+        />
         <StyledTitleInput
           value={post.title}
           placeholder='제목을 입력하세요.'
